@@ -11,14 +11,14 @@ jobs:
     - name: Clean Maven Package
       uses: actions/delete-package-versions@v3
       with:
-        owner: ${{ github.actor }}
+        owner: e-fullstack
         repo: 'petstore-pet'
         package-name: 'com.samitkumarpatel.petstore.petstore-pet'
         token: ${{ secrets.GITHUB_TOKEN }}
     - name: Clean Docker Image
       uses: actions/delete-package-versions@v3
       with:
-        owner: ${{ github.actor }}
+        owner: e-fullstack
         repo: 'petstore-pet'
         package-name: 'petstore-pet'
         token: ${{ secrets.GITHUB_TOKEN }}
