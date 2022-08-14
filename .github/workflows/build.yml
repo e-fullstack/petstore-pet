@@ -26,14 +26,22 @@ jobs:
     - name: Change POM Version
       run: |
         echo "VERSION : $VERSION"
-        mvn versions:set -DnewVersion=$VERSION
+        mvn -B versions:set -DnewVersion=$VERSION
     - name: Deploy Artifact
       run: mvn -B deploy
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
     - name: Docker Image generation
       run: mvn spring-boot:build-image -Dgithub.sha=${{ github.sha }}
-    - name: Docker Image Push
+
+    - name: Log in to the ghcr.io Container registry
+      uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Push Docker Images
       run: |
         docker images
-        docker push -a ghcr.io/${{env.GITHUB_REPOSITORY}}
+        docker push -a ghcr.io/${{ env.GITHUB_REPOSITORY }}
