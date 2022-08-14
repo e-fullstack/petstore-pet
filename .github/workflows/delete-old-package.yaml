@@ -1,15 +1,24 @@
 name: delete-old-package
 
 on:
+  workflow_dispatch:
   schedule:
   - cron: '0 0 * * 0'
 jobs:
   delete-package:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/delete-package-versions@v3
+    - name: Clean Maven Package
+      uses: actions/delete-package-versions@v3
       with:
         owner: ${{ github.actor }}
         repo: 'petstore-pet'
         package-name: 'com.samitkumarpatel.petstore.petstore-pet'
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Clean Docker Image
+      uses: actions/delete-package-versions@v3
+      with:
+        owner: ${{ github.actor }}
+        repo: 'petstore-pet'
+        package-name: 'petstore-pet'
         token: ${{ secrets.GITHUB_TOKEN }}
