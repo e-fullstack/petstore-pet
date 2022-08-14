@@ -22,13 +22,17 @@ jobs:
         cache: maven
     - name: pom versioning
       run: |
-        echo "VERSIONING=$(date +'%d-%m-%Y-%H-%M')" >> $GITHUB_ENV
+        echo "VERSION=$(date +'%d-%m-%Y-%H-%M')" >> $GITHUB_ENV
+    - name: pom version
+      run: |
+        echo "VERSION : $VERSION"
+        mvn versions:set -DnewVersion=$VERSION
     - name: Maven Deploy
-      run: ./mvnw -B deploy
+      run: mvn -B deploy
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
     - name: Generate Docker Image
-      run: ./mvnw spring-boot:build-image -Dgithub.sha=${{ github.sha }}
+      run: mvn spring-boot:build-image -Dgithub.sha=${{ github.sha }}
     - name: Docker Image push to ghcr.io
       run: |
         docker images
