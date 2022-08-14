@@ -20,20 +20,20 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: pom versioning
+    - name: Set Project Version
       run: |
         echo "VERSION=$(date +'%d-%m-%Y-%H-%M')" >> $GITHUB_ENV
-    - name: pom version
+    - name: Change POM Version
       run: |
         echo "VERSION : $VERSION"
         mvn versions:set -DnewVersion=$VERSION
-    - name: Maven Deploy
+    - name: Deploy Artifact
       run: mvn -B deploy
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-    - name: Generate Docker Image
+    - name: Docker Image generation
       run: mvn spring-boot:build-image -Dgithub.sha=${{ github.sha }}
-    - name: Docker Image push to ghcr.io
+    - name: Docker Image Push
       run: |
         docker images
         docker push -a ghcr.io/${{env.GITHUB_REPOSITORY}}
