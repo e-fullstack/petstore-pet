@@ -44,4 +44,4 @@ jobs:
     - name: Push Docker Images
       run: |
         docker images
-        docker push -a ghcr.io/${{ env.GITHUB_REPOSITORY }}
+        docker push -a ghcr.io/$GITHUB_REPOSITORY

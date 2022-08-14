@@ -83,8 +83,8 @@
 					<image>
 						<name>ghcr.io/e-fullstack/${project.artifactId}:${project.version}</name>
 						<tags>
-							<tag>ghcr.io/samitkumarpatel/${project.artifactId}:latest</tag>
-							<tag>ghcr.io/samitkumarpatel/${project.artifactId}:${github.sha}</tag>
+							<tag>ghcr.io/e-fullstack/${project.artifactId}:latest</tag>
+							<tag>ghcr.io/e-fullstack/${project.artifactId}:${github.sha}</tag>
 						</tags>
 					</image>
 				</configuration>
