@@ -5,8 +5,10 @@ petstore-pet microservice to deal with petstore/pets
 - postgres db
 
 ### build
+
 ```bash
 ./mvnw clean install
+
 # TO generate docker Image using build pack (inbuild)
 ./mvnw spring-boot:build-image
 ```
